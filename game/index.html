@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Slip beneath Vesper Private Bank and steal the Midnight Diamond in a single-screen tactical heist.">
+  <meta name="theme-color" content="#090e17">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <title>Black Vault — Operation Midnight</title>
+</head>
+<body>
+  <main id="stage" aria-label="Black Vault, Operation Midnight">
+    <canvas id="world" aria-label="Top-down map of Vesper Private Bank"></canvas>
+
+    <section id="interface" aria-label="Mission HUD" hidden>
+      <header class="hud-top">
+        <div class="wordmark"><i class="mark" aria-hidden="true"></i><div><strong>BLACK VAULT</strong><small>OPERATION MIDNIGHT</small></div></div>
+        <div class="objective"><div class="eyebrow"><span id="objective-index">01 / 05</span><span id="objective-zone">SERVICE RECORDS</span></div><strong id="objective">Acquire the access card</strong></div>
+        <div class="trace" id="trace" data-phase="CLEAR">
+          <div class="trace-label"><span>ALARM / SECURITY TRACE</span><strong id="trace-value">00%</strong></div>
+          <div class="meter" id="trace-meter" role="meter" aria-label="Alarm level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="trace-fill"></div></div>
+          <div class="trace-phase"><span id="trace-phase">CLEAR</span><span id="warning"></span></div>
+        </div>
+        <div class="timer"><small>ELAPSED</small><strong id="timer">00:00</strong></div>
+      </header>
+      <div class="map-topline"><span>VESPER PRIVATE BANK <b>·</b> LEVEL B-02</span><span id="field-state">INFILTRATION</span></div>
+      <div id="notice" class="radio" hidden><span>COMMS</span><strong id="notice-text"></strong></div>
+      <div id="interaction" class="interaction" hidden><kbd>E</kbd><span id="interaction-text"></span></div>
+      <footer class="hud-bottom">
+        <div class="equipment"><kbd>SPACE</kbd><div><small>DECOY</small><div class="charges" id="decoys" aria-label="Decoy charges"></div></div></div>
+        <div class="equipment"><kbd>Q</kbd><div><small>JAMMER</small><div class="charges" id="jammers" aria-label="Jammer charges"></div></div></div>
+        <div class="cargo"><i class="mini-gem" aria-hidden="true"></i><div><small>LOOT</small><strong id="cargo" data-secured="false">IN VAULT</strong></div></div>
+        <div class="legend"><span><i class="dot guard-dot"></i> GUARDS</span><span><i class="dot camera-dot"></i> CAMERAS</span><span><i class="dot laser-dot"></i> LASERS</span></div>
+        <div class="keys"><span><kbd>TAB</kbd> INTEL</span><button id="pause-button" type="button" aria-label="Pause mission"><kbd>ESC</kbd> PAUSE</button><button id="hud-audio" type="button" aria-label="Toggle audio"><kbd>M</kbd> <span id="sound-status">ON</span></button></div>
+      </footer>
+      <p id="status" role="status" aria-live="polite" class="sr-only"></p>
+    </section>
+
+    <section id="title" class="title-screen" aria-labelledby="game-title">
+      <div class="title-head"><i class="mark" aria-hidden="true"></i><span>VESPER PRIVATE BANK <b>·</b> CLASSIFIED BRIEFING</span></div>
+      <div class="title-copy">
+        <p class="title-kicker"><i></i> OPERATION MIDNIGHT</p>
+        <h1 id="game-title">BLACK<br><em>VAULT</em></h1>
+        <p class="tagline">EVERY SECOND IS STOLEN.</p>
+        <p class="premise">A midnight storm covers your approach. Beneath Vesper Private Bank, the stolen Midnight Diamond waits behind three pins and a live laser grid.</p>
+        <div class="title-actions"><button class="primary" id="start" type="button">Start heist</button><button id="how" type="button">How to play</button><button id="menu-audio" type="button">Audio on</button></div>
+      </div>
+      <div class="title-footer"><span>VESPER FINANCIAL DISTRICT</span><span>B-02 <b>·</b> 00:00 LOCAL</span></div>
+    </section>
+
+    <div id="lock" class="lock-panel" aria-label="Vault lock puzzle" hidden>
+      <div class="eyebrow">VAULT MECHANISM <span id="lock-state">PIN 01 / 03</span></div>
+      <div class="lock-face" aria-hidden="true"><div id="lock-arc"></div><div class="lock-ring"></div><div id="lock-needle"></div><i></i></div>
+      <div class="lock-help"><kbd>E</kbd> Set pin in the mint arc</div>
+      <div class="lock-back">ESC TO STEP AWAY</div>
+    </div>
+
+    <div id="overlay" class="overlay" hidden>
+      <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+        <p class="eyebrow" id="dialog-kicker"></p>
+        <h2 id="dialog-title"></h2>
+        <div id="dialog-content"></div>
+        <div class="dialog-actions" id="dialog-actions"></div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
